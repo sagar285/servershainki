@@ -1,4 +1,4 @@
-import express from "express";
+import express,{ Request, Response }  from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import cors from "cors";
@@ -20,16 +20,16 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: process.env["CLIENT_URL"] || "https://client-git-main-sagar285s-projects.vercel.app/",
+    origin:  "https://client-git-main-sagar285s-projects.vercel.app/",
     methods: ["GET", "POST"],
     credentials: true,
   },
   transports: ["websocket", "polling"],
 });
 
-const PORT = process.env["PORT"] || 8000;
+const PORT =  8000;
 const MONGODB_URI =
-  process.env["MONGODB_URI"] || "mongodb+srv://shivamdevg687_db_user:8yrvICqEdUalO2F5@cluster0.6lsukxf.mongodb.net/math-quiz?retryWrites=true&w=majority";
+  "mongodb+srv://shivamdevg687_db_user:8yrvICqEdUalO2F5@cluster0.6lsukxf.mongodb.net/math-quiz?retryWrites=true&w=majority";
 
 // Get GameService instance
 const gameService = GameService.getInstance();
@@ -69,7 +69,7 @@ app.use(
 
 app.use(
   cors({
-    origin: process.env["CLIENT_URL"] || "https://client-git-main-sagar285s-projects.vercel.app/",
+    origin:  "https://client-git-main-sagar285s-projects.vercel.app/",
     credentials: true,
   })
 );
@@ -85,13 +85,15 @@ app.use("/api", apiLimiter);
 app.use("/api/game", gameRoutes);
 
 // Health check endpoint
-app.get("/health", (req, res) => {
+app.get("/health", (req: Request, res: Response) => {
   res.json({
     status: "OK",
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
   });
 });
+
+
 
 // Socket.io connection handling
 io.on("connection", (socket) => {
