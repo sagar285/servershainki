@@ -20,7 +20,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: process.env["CLIENT_URL"] || "http://localhost:3000",
+    origin: process.env["CLIENT_URL"] || "https://client-git-main-sagar285s-projects.vercel.app/",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -29,7 +29,7 @@ const io = new Server(server, {
 
 const PORT = process.env["PORT"] || 8000;
 const MONGODB_URI =
-  process.env["MONGODB_URI"] || "mongodb://localhost:27017/math-quiz";
+  process.env["MONGODB_URI"] || "mongodb+srv://shivamdevg687_db_user:8yrvICqEdUalO2F5@cluster0.6lsukxf.mongodb.net/math-quiz?retryWrites=true&w=majority";
 
 // Get GameService instance
 const gameService = GameService.getInstance();
@@ -69,7 +69,7 @@ app.use(
 
 app.use(
   cors({
-    origin: process.env["CLIENT_URL"] || "http://localhost:3000",
+    origin: process.env["CLIENT_URL"] || "https://client-git-main-sagar285s-projects.vercel.app/",
     credentials: true,
   })
 );
